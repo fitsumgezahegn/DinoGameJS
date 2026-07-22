@@ -1,6 +1,7 @@
 file structure 
 
 DINOGAMEjs
+
 ├── .git
 ├── images
 ├── js
