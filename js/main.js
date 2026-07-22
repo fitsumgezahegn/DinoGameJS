@@ -81,7 +81,7 @@ class Layer {
             }
             if(player.y<0)
             {
-                player.y = canvas.height
+                player.y = 0;
             }
           
         }
@@ -104,14 +104,21 @@ class Layer {
           if(score>=1000)
           {
              currentState = GAME_STATE.WIN
+    
              drawGameWin();
           }
           for(let index of enmies){
             if(player.x < index.x + index.width && player.x + player.width > index.x && player.y < index.y + index.height && index.y + player.height > index.y){
                 console.log("collision happens")
                 collide++;
-                console.log(score)
-                if(collide>200) {
+                music.pause();
+                hit.play();
+                
+                if(index.y > player.y)
+                {
+                    collide--;
+                }
+                if(collide>500) {
                   currentState = GAME_STATE.GAME_OVER
                    drawGameOver();
                 }
@@ -161,6 +168,7 @@ function drawGameOver(){
     
 }
 function drawGameWin(){
+    
     context.fillStyle = "black"
     context.font = "50px Arial"
     context.fillText("you have won;", 100, 300)
@@ -191,6 +199,8 @@ function gameLoop(){
         playerLayer.drawPlayer();
         enemyImage.drawEnemies();
 
+        music.play();
+
         drawScore();
     }
 
@@ -202,10 +212,11 @@ function gameLoop(){
     if(currentState === GAME_STATE.PAUSED)
     {
         drawPause();
+        music.pause();
     }
 
         requestAnimationFrame(gameLoop)
-
+   
 
 }
 

@@ -6,6 +6,9 @@ const GAME_STATE = {
     WIN: "win"
 }
 
+const music = new Audio("sounds/GameBackground.mp3");
+const hit =  new Audio("sounds/hit.mp3")
+
 let currentState = GAME_STATE.MENU;
 
 window.addEventListener("keydown", function(event){
